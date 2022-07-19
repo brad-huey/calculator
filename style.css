@@ -1,0 +1,50 @@
+body {
+display:grid;
+justify-content: center;
+text-align: center;
+background-color: rgb(179, 244, 229);
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 800;
+    margin: 16px;
+    outline: 4px solid rgb(159, 90, 224);
+    outline-offset: -4px;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    background-color: rgb(190, 160, 218);
+    border-radius: 10px;
+}
+
+.all-button-container {
+    display: grid;
+    grid-template-rows: auto;
+    width: 500px;
+    height: 10rem;
+    padding: 0.5rem;
+    margin: 0.5rem;
+}
+
+.button-grid {
+    display: grid;
+    grid-template-columns: 20% 20% 20% 40%;
+}
+
+.bottom-grid {
+    display: grid;
+    grid-template-columns: 60% 40%;
+}
+
+
+button {
+    margin: 0.1rem;
+    border-radius: 5px;
+}
+
+
+/*
+* {
+    outline: 1px solid red !important;
+}
+*/
