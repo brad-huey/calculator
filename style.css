@@ -6,24 +6,40 @@ background-color: rgb(179, 244, 229);
 }
 
 .title {
+    display: grid;
+    justify-self: center;
+    width: 500px;
     font-size: 2rem;
     font-weight: 800;
-    margin: 16px;
+    margin-bottom: 8px;
     outline: 4px solid rgb(159, 90, 224);
-    outline-offset: -4px;
-    padding-top: .5rem;
-    padding-bottom: .5rem;
+    outline-offset: -8px;
+    padding: .5rem;
     background-color: rgb(190, 160, 218);
     border-radius: 10px;
 }
 
-.all-button-container {
+.output-box {
+    display: grid;
+    justify-self: center;
+    align-items: center;
+    font-size: 1.25rem;
+    font-weight:700;
+    outline: 0.25rem solid black;
+    background-color: rgba(221, 221, 221, 0.686);
+    text-align: right;
+    padding-left: .5rem;
+    padding-right: .5rem;
+    width: 484px;
+    margin-bottom: 8px;
+}
+
+.all-container {
     display: grid;
     grid-template-rows: auto;
-    width: 500px;
     height: 16rem;
-    padding: 0.5rem;
-    margin: 0.5rem;
+    padding: .5rem;
+    margin: .5rem;
 }
 
 .button-grid {
@@ -39,8 +55,11 @@ background-color: rgb(179, 244, 229);
 
 
 button {
-    margin: 0.25rem;
-    border-radius: 5px;
+    margin: 0.25rem;    
+}
+
+button:hover {
+    cursor: pointer;
 }
 
 
