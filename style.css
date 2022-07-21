@@ -19,7 +19,7 @@ background-color: rgb(179, 244, 229);
     border-radius: 10px;
 }
 
-.output-box {
+#output-box {
     display: grid;
     justify-self: center;
     align-items: center;
@@ -31,6 +31,7 @@ background-color: rgb(179, 244, 229);
     padding-left: .5rem;
     padding-right: .5rem;
     width: 484px;
+    height: 25px;
     margin-bottom: 8px;
 }
 
@@ -40,6 +41,8 @@ background-color: rgb(179, 244, 229);
     height: 16rem;
     padding: .5rem;
     margin: .5rem;
+    background-color: rgb(190, 160, 218);
+    outline: 4px solid rgb(159, 90, 224);
 }
 
 .button-grid {
@@ -55,11 +58,13 @@ background-color: rgb(179, 244, 229);
 
 
 button {
-    margin: 0.25rem;    
+    margin: 0.25rem;
+    border-radius: 5px;
 }
 
 button:hover {
     cursor: pointer;
+    background-color: lightgray;
 }
 
 
