@@ -26,6 +26,7 @@ background-color: rgb(179, 244, 229);
     font-size: 1.25rem;
     font-weight:700;
     outline: 0.25rem solid black;
+    border-radius: 5px;
     background-color: rgba(221, 221, 221, 0.686);
     text-align: right;
     padding-left: .5rem;
@@ -38,11 +39,12 @@ background-color: rgb(179, 244, 229);
 .all-container {
     display: grid;
     grid-template-rows: auto;
-    height: 16rem;
+    height: 18rem;
     padding: .5rem;
     margin: .5rem;
     background-color: rgb(190, 160, 218);
     outline: 4px solid rgb(159, 90, 224);
+    box-shadow: 10px 10px 5px 5px;
 }
 
 .button-grid {
@@ -50,10 +52,25 @@ background-color: rgb(179, 244, 229);
     grid-template-columns: 20% 20% 20% 40%;
 }
 
+.button-grid .operator {
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.button-grid .delete, .decimal {
+    font-weight: 900;
+}
+
 .bottom-grid {
     display: grid;
     grid-template-columns: 60% 40%;
-    margin-top: 1rem;
+    margin-top: .5rem;
+}
+
+.bottom-grid button {
+    height: 2rem;
+    font-size: 1rem;
+    font-weight: 700;
 }
 
 

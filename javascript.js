@@ -21,50 +21,111 @@ const outputBox = document.getElementById("output-box");
 */
 
 outputDisplay = document.getElementById('output-box');
+
 const buttonsOperand = document.getElementsByClassName('operand');
 const buttonsOperator = document.getElementsByClassName('operator');
 const buttonDecimal = document.getElementsByClassName('decimal');
 const buttonDelete = document.getElementsByClassName('delete');
 const buttonEqual = document.getElementsByClassName('equals');
 const buttonClear = document.getElementsByClassName('clear');
+const array1 = [];
+const arrayOp = [];
+let operandFirst = 0;
+let operandSecond = 0;
+const arrayAnswer = [];
 
-document.querySelectorAll('.operand').forEach(item => {
+//const outputArray = [num1, operator, num2];
+//const outputResult = numAnswer
+
+//function array1()
+//for (i = 0; i < 1; i++)
+
+//calculate(operandFirst, operandSecond);
+
+//function calculate(operandFirst, operandSecond)
+    document.querySelectorAll('button').forEach(item => {
+        item.addEventListener('click', function() {
+                array1.push(item.value);
+                //let buttonPressed = num1
+                let operandFirst = array1.join('');
+                outputDisplay.textContent = operandFirst;
+                console.log(operandFirst);
+                return operandFirst;
+                
+        });
+    });
+
+    document.querySelectorAll('.operator').forEach(item => {
+        item.addEventListener('click', function() {
+            arrayOp.push(item.value);
+            let operatorSelected = arrayOp.join('');
+            outputDisplay.textContent = operatorSelected;
+            console.log(operatorSelected);
+        });
+    });
+
+    document.querySelectorAll('.equals').forEach(item => {
+        item.addEventListener('click', function() {
+            arrayAnswer.push(item.value);
+            let answerPushed = arrayAnswer.join('');
+            outputDisplay.textContent = operatorSelected;
+            console.log(operatorSelected);
+        });
+    }); //working on. replace item.value because you don't want = to appear on the line
+
+/* document.querySelectorAll('.operator').forEach(item => {
     item.addEventListener('click', function() {
-        outputDisplay.textContent = item.value;
+        let operatorSelected = item.value;
+        outputDisplay.textContent = (operandFirst + operatorSelected);
+        console.log(operatorSelected)
     })
 })
+ */
 
-document.querySelectorAll('.operator').forEach(item => {
-    item.addEventListener('click', function() {
-        outputDisplay.textContent = item.value;
+//}
+
+    /*
+    document.querySelectorAll('.operator').forEach(item => {
+        item.addEventListener('click', function() {
+            let buttonPressed = item.className
+            outputDisplay.textContent = item.value;
+            console.log(buttonPressed); //pull className from click
+        })
     })
-})
 
-document.querySelectorAll('.decimal').forEach(item => {
-    item.addEventListener('click', function() {
-        outputDisplay.textContent = item.value;
+    document.querySelectorAll('.decimal').forEach(item => {
+        item.addEventListener('click', function() {
+            let buttonPressed = item.className
+            outputDisplay.textContent = item.value;
+            console.log(buttonPressed); //pull className from click
+        })
     })
-})
 
-document.querySelectorAll('.delete').forEach(item => {
-    item.addEventListener('click', function() {
-        outputDisplay.textContent = item.value;
+    document.querySelectorAll('.delete').forEach(item => {
+        item.addEventListener('click', function() {
+            let buttonPressed = item.className
+            outputDisplay.textContent = item.value;
+            console.log(buttonPressed); //pull className from click
+        })
     })
-})
 
-document.querySelectorAll('.equals').forEach(item => {
-    item.addEventListener('click', function() {
-        outputDisplay.textContent = item.value;
+    document.querySelectorAll('.equals').forEach(item => {
+        item.addEventListener('click', function() {
+            let buttonPressed = item.className
+            outputDisplay.textContent = item.value;
+            console.log(buttonPressed); //pull className from click
+        })
     })
-})
 
-document.querySelectorAll('.clear').forEach(item => {
-    item.addEventListener('click', function() {
-        outputDisplay.textContent = item.value;
+    document.querySelectorAll('.clear').forEach(item => {
+        item.addEventListener('click', function() {
+            let buttonPressed = item.className
+            outputDisplay.textContent = item.value;
+            console.log(buttonPressed); //pull className from click
+        })
     })
-})
-
-
+*/
+//}
 
 
 /*
