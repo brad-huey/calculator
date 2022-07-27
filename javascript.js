@@ -33,6 +33,11 @@ operandArray1 = [operandSelected.value];
 operatorArray1 = [operatorSelected.textContent];
 operandArray2 = [operand2Selected.value];
 operatorArray2 = [operator2Selected.textContent];
+equationAnswer = [operandArray1];
+operandArray1.shift();
+operatorArray1.shift();
+operandArray2.shift();
+
 
 // const operand1 = [];
 //     operand1[0] = '0';
@@ -59,8 +64,8 @@ operandSelected.forEach(operandSelected => {
         operandArray1.push(this.value);
         //let operandFirst = (operandArray1.join('')); //not in use
         outputDisplay.textContent = (operandArray1.join(''))
-        console.log(operandArray1.join(''))  //console log
-        console.log(operandArray1);
+        //console.log(operandArray1.join(''))  //console log
+        //console.log(operandArray1);
         operatorSelected.forEach(operatorSelected => {
             operatorSelected.addEventListener('click', operatorFirstHandler)
         });
@@ -68,11 +73,11 @@ operandSelected.forEach(operandSelected => {
 
     function operatorFirstHandler () {
         operatorArray1.push(this.value);
-        //let operator1 = (operatorArray1.join('')) //not in use
+        //let operand1 = (operandArray1.join('')) //not in use
         let displayOperation1 = (operandArray1.join('')) + operatorArray1.join('');
         outputDisplay.textContent = (displayOperation1);
-        console.log(operatorArray1.join('')); //console log
-        console.log(operatorArray1);
+        //console.log(operatorArray1.join('')); //console log
+        //console.log(operatorArray1);
         operandSelected.forEach(operandSelected => {
             operandSelected.removeEventListener('click', operandFirstHandler)
         });
@@ -90,37 +95,55 @@ operandSelected.forEach(operandSelected => {
         let displayOperation2 = (operandArray1.join('')) 
         + (operatorArray1.join('')) + (operandArray2.join(''));
         outputDisplay.textContent = (displayOperation2);
-        console.log(operandArray2.join(''));
-        console.log(operandArray2);
+        //console.log(operandArray2.join(''));
+        //console.log(operandArray2);
         equalsSelected.forEach(equalsSelected => {
             equalsSelected.addEventListener('click', equalsHandler)
         });
     };
     function equalsHandler() {
-        operandArray1.shift();
-        operandArray2.shift();
-        operatorArray1.shift();
+        operand2Selected.forEach(operand2Selected => {
+            operand2Selected.removeEventListener('click', operandSecondHandler)
+        });
         let operandString1 = operandArray1.join('');
         let operandString2 = operandArray2.join('');
-        let operatorString1 = operatorArray1[0];
+        let operatorString1 = operatorArray1.join('');
         let operandNumber1 = parseFloat(operandString1);
         let operandNumber2 = parseFloat(operandString2);
-        if (operatorString1 === '+') {
-            outputDisplay.textContent = (operandNumber1) + (operandNumber2)
-            console.log((operandNumber1) + (operandNumber2));
-        }
-        if (operatorString1 === '-') {
-            outputDisplay.textContent = (operandNumber1) - (operandNumber2)
-            console.log((operandNumber1) - (operandNumber2));
-        }
-        if (operatorString1 === '*') {
-            outputDisplay.textContent = (operandNumber1) * (operandNumber2)
-            console.log((operandNumber1) * (operandNumber2));
-        }
-        if (operatorString1 === '/') {
-            outputDisplay.textContent = (operandNumber1) / (operandNumber2)
-            console.log((operandNumber1) / (operandNumber2));
-        }
+            if (operatorString1 === '+') {
+                outputDisplay.textContent = (operandNumber1) + (operandNumber2)
+                //console.log((operandNumber1) + (operandNumber2));
+                let equationAnswer = ((operandNumber1) + (operandNumber2));
+                operandArray1 = ['', equationAnswer];
+                console.log(operandArray1);
+            }
+            if (operatorString1 === '-') {
+                outputDisplay.textContent = (operandNumber1) - (operandNumber2)
+                //console.log((operandNumber1) - (operandNumber2));
+                let equationAnswer = ((operandNumber1) - (operandNumber2));
+                operandArray1 = ['', equationAnswer];
+                console.log(operandArray1);
+            }
+            if (operatorString1 === '*') {
+                outputDisplay.textContent = (operandNumber1) * (operandNumber2)
+                //console.log((operandNumber1) * (operandNumber2));
+                let equationAnswer = ((operandNumber1) * (operandNumber2));
+                operandArray1 = ['', equationAnswer];
+                console.log(operandArray1);
+            }
+            if (operatorString1 === '/') {
+                outputDisplay.textContent = (operandNumber1) / (operandNumber2)
+                //console.log((operandNumber1) / (operandNumber2));
+                let equationAnswer = ((operandNumber1) / (operandNumber2));
+                operandArray1 = ['', equationAnswer];
+                console.log(operandArray1);
+            }
+            operatorArray1 = [];
+            operandArray2 = [];
+        //console.log(operandArray1);
+        operatorSelected.forEach(operatorSelected => {
+            operatorSelected.addEventListener('click', operatorFirstHandler)
+        });
     };
     ///////////////// --WORKS TIL HERE-- /////////////////
 
