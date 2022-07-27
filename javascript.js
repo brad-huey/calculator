@@ -92,11 +92,40 @@ operandSelected.forEach(operandSelected => {
         outputDisplay.textContent = (displayOperation2);
         console.log(operandArray2.join(''));
         console.log(operandArray2);
+        equalsSelected.forEach(equalsSelected => {
+            equalsSelected.addEventListener('click', equalsHandler)
+        });
+    };
+    function equalsHandler() {
+        operandArray1.shift();
+        operandArray2.shift();
+        operatorArray1.shift();
+        let operandString1 = operandArray1.join('');
+        let operandString2 = operandArray2.join('');
+        let operatorString1 = operatorArray1[0];
+        let operandNumber1 = parseFloat(operandString1);
+        let operandNumber2 = parseFloat(operandString2);
+        if (operatorString1 === '+') {
+            outputDisplay.textContent = (operandNumber1) + (operandNumber2)
+            console.log((operandNumber1) + (operandNumber2));
+        }
+        if (operatorString1 === '-') {
+            outputDisplay.textContent = (operandNumber1) - (operandNumber2)
+            console.log((operandNumber1) - (operandNumber2));
+        }
+        if (operatorString1 === '*') {
+            outputDisplay.textContent = (operandNumber1) * (operandNumber2)
+            console.log((operandNumber1) * (operandNumber2));
+        }
+        if (operatorString1 === '/') {
+            outputDisplay.textContent = (operandNumber1) / (operandNumber2)
+            console.log((operandNumber1) / (operandNumber2));
+        }
     };
     ///////////////// --WORKS TIL HERE-- /////////////////
-        operandSelected.forEach(operandSelected => {
-            operandSelected.addEventListener('click', operandFirstHandler)
-        });
+
+
+        
      //operANDSecondHandler
 
         // equalsSelected.forEach(equalsSelected => {
