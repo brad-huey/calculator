@@ -29,6 +29,7 @@ const operatorSelected = document.querySelectorAll('.operator');
 const operand2Selected = document.querySelectorAll('.operand');
 const operator2Selected = document.querySelectorAll('.operator');
 const equalsSelected = document.querySelectorAll('.equals');
+const clearSelect = document.querySelectorAll('.clear');
 operandArray1 = [operandSelected.value];
 operatorArray1 = [operatorSelected.textContent];
 operandArray2 = [operand2Selected.value];
@@ -57,9 +58,6 @@ operandSelected.forEach(operandSelected => {
     operandSelected.addEventListener('click', operandFirstHandler)
 });
 
-
-
-
     function operandFirstHandler () {
         operandArray1.push(this.value);
         //let operandFirst = (operandArray1.join('')); //not in use
@@ -68,6 +66,9 @@ operandSelected.forEach(operandSelected => {
         //console.log(operandArray1);
         operatorSelected.forEach(operatorSelected => {
             operatorSelected.addEventListener('click', operatorFirstHandler)
+        });
+        clearSelect.forEach(clearSelect => {
+            clearSelect.addEventListener('click', clearDisplayHandler)
         });
     };
 
@@ -145,9 +146,32 @@ operandSelected.forEach(operandSelected => {
             operatorSelected.addEventListener('click', operatorFirstHandler)
         });
     };
+
+    function clearDisplayHandler () {
+        operandArray1 = [];
+        operandArray2 = [];
+        operatorArray1 = [];
+        outputDisplay.textContent = '0';
+        operand2Selected.forEach(operand2Selected => {
+            operand2Selected.removeEventListener('click', operandSecondHandler)
+        });
+        operatorSelected.forEach(operatorSelected => {
+            operatorSelected.removeEventListener('click', operatorFirstHandler)
+        });
+        equalsSelected.forEach(equalsSelected => {
+            equalsSelected.removeEventListener('click', equalsHandler)
+        });
+        operandSelected.forEach(operandSelected => {
+            operandSelected.addEventListener('click', operandFirstHandler)
+        });
+        clearSelect.forEach(clearSelect => {
+            clearSelect.removeEventListener('click', clearDisplayHandler)
+        });
+    }
     ///////////////// --WORKS TIL HERE-- /////////////////
 
 
+    
         
      //operANDSecondHandler
 
