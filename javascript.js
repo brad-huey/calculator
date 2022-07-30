@@ -4,7 +4,8 @@ const operandBSelect = document.querySelectorAll('.operand');
 const operandCSelect = document.querySelectorAll('.operand');
 const operator1Select = document.querySelectorAll('.operator');
 const operator2Select = document.querySelectorAll('.operator');
-const equalsSelect = document.querySelectorAll('.equals');
+const equalsSelect1 = document.querySelectorAll('.equals');
+const equalsSelect2 = document.querySelectorAll('.equals');
 const outputDisplay = document.getElementById("output-box");
 displayArray = [buttonSelect.textContent];
 operandArray = [operandASelect.value];
@@ -32,13 +33,28 @@ function operator1SelectHandler () {
     operandASelect.forEach(operandASelect => {
         operandASelect.removeEventListener('click', operandASelectHandler)
     });
+    operator1Select.forEach(operator1Select => {
+        operator1Select.removeEventListener('click', operator1SelectHandler);
+    });
+    console.log('a1 equationArray', equationArray);
+    console.log('a1 operatorArray', operatorArray);
+    console.log('a1 operandArray', operandArray);
+    console.log('a1 displayArray', displayArray);
+    console.log('a1 operandA', operandA);
     operatorArray = [];
+    console.log('a1 CLEAR operatorArray', operatorArray);
     equationArray[1] = operandA;
     displayArray.push(this.value);
     operatorArray.push(this.value);
     operatorString1 = operatorArray[0];
     outputDisplay.textContent = displayArray.join('');
+    console.log('a2 equationArray', equationArray);
+    console.log('a2 operatorArray', operatorArray);
+    console.log('a2 operandArray', operandArray);
+    console.log('a2 displayArray', displayArray);
+    console.log('a2 operandA', operandA);
     operandArray = [];
+    console.log('aCLEAR operandArray', operandArray);
     operandBSelect.forEach(operandBSelect => {
         operandBSelect.addEventListener('click', operandBSelectHandler)
     });
@@ -48,23 +64,38 @@ function operandBSelectHandler () {
     operator1Select.forEach(operator1Select => {
         operator1Select.removeEventListener('click', operator1SelectHandler)
     });
+    console.log('b1 equationArray', equationArray);
+    console.log('b1 operatorArray', operatorArray);
+    console.log('b1 operandArray', operandArray);
+    console.log('b1 displayArray', displayArray);
+    console.log('b1 operandA', operandA);
     displayArray.push(this.value);
     operandArray.push(this.value);
     operandB = Number(operandArray.join(''));
     outputDisplay.textContent = displayArray.join('');
+    console.log('b2 equationArray', equationArray);
+    console.log('b2 operatorArray', operatorArray);
+    console.log('b2 operandArray', operandArray);
+    console.log('b2 displayArray', displayArray);
+    console.log('b2 operandA', operandA);
+    console.log('b2 operandB', operandB);
     operator2Select.forEach(operator2Select => {
         operator2Select.addEventListener('click', operator2SelectHandler)
+    });
+    equalsSelect1.forEach(equalsSelect1 => {
+        equalsSelect1.addEventListener('click', equalsSelect1Handler)
     });
 };
 
 function operator2SelectHandler() {
+    equalsSelect1.forEach(equalsSelect1 => {
+        equalsSelect1.removeEventListener('click', equalsSelect1Handler)
+    });
+    equalsSelect2.forEach(equalsSelect2 => {
+        equalsSelect2.removeEventListener('click', equalsSelect2Handler)
+    });
     operatorArray.push(this.value);
-    console.log(displayArray);
-    console.log(displayArray.join(''));
-    console.log('array before', operatorArray);
     operatorString1 = operatorArray[0];
-    console.log('string after', operatorString1)
-    console.log('array after', operatorArray);
     operandArray2 = [];
     equationArray[0] = operandA;
     equationArray[1] = operandB;
@@ -158,7 +189,148 @@ function operandCSelectHandler() {
     operator2Select.forEach(operator2Select => {
         operator2Select.addEventListener('click', operator2SelectHandler)
     });
+    equalsSelect2.forEach(equalsSelect2 => {
+        equalsSelect2.addEventListener('click', equalsSelect2Handler)
+    });
 };
+
+//equals button is pressed after 2nd operand entered
+function equalsSelect1Handler() {
+    operator2Select.forEach(operator2Select => {
+        operator2Select.removeEventListener('click', operator2SelectHandler)
+    });
+    operandBSelect.forEach(operandBSelect => {
+        operandBSelect.removeEventListener('click', operandBSelectHandler)
+    });
+    operatorString1 = operatorArray[0];
+    equationArray[0] = operandA;
+    equationArray[1] = operandB;
+    let x = Number(operandA);
+    let y = Number(operandB);
+        if (operatorString1 == '+') {
+            let operationResult = (operandA) + (operandB);
+            equationArray = [];
+                equationArray[0] = [];
+                equationArray[1] = [operationResult];
+             operandArray = [];
+             operatorArray=[];
+            operator1Select.forEach(operator1Select => {
+                operator1Select.addEventListener('click', operator1SelectHandler);
+            });
+        } else if (operatorString1 == '-') {
+            let operationResult = (operandA) - (operandB);
+            equationArray = [];
+                equationArray[0] = [];
+                equationArray[1] = [operationResult];
+             operandArray = [];
+            operator1Select.forEach(operator1Select => {
+                operator1Select.addEventListener('click', operator1SelectHandler);
+            });   
+        } else if (operatorString1 == '*') {
+            let operationResult = (operandA) * (operandB);
+            equationArray = [];
+                equationArray[0] = [];
+                equationArray[1] = [operationResult];
+             operandArray = [];
+            operator1Select.forEach(operator1Select => {
+                operator1Select.addEventListener('click', operator1SelectHandler);
+            });
+        } else if (operatorString1 == '/') {
+            let operationResult = (operandA) / (operandB);
+            equationArray = [];
+                equationArray[0] = [];
+                equationArray[1] = [operationResult];
+             operandArray = [];
+            operator1Select.forEach(operator1Select => {
+                operator1Select.addEventListener('click', operator1SelectHandler);
+            });
+        }
+        let operationResult = Number(equationArray[1])
+        displayArray = [];
+        displayArray.push(equationArray[1]);
+        outputDisplay.textContent = displayArray[0];
+        operandA = operationResult;
+    console.log('final equationArray', equationArray);
+    console.log('final operatorArray', operatorArray);
+    console.log('final operandArray', operandArray);
+    console.log('final displayArray', displayArray);
+    console.log('final operandA', operandA);
+    console.log('final operandB', operandB);
+    equalsSelect1.forEach(equalsSelect1 => {
+        equalsSelect1.removeEventListener('click', equalsSelect1Handler)
+    });
+}
+
+//**Do Not Confuse with equals1**
+//equals button is pressed after operandC entered **Do Not Confuse with equals1**
+function equalsSelect2Handler() {
+    operator2Select.forEach(operator2Select => {
+        operator2Select.removeEventListener('click', operator2SelectHandler)
+    });
+    operandCSelect.forEach(operandCSelect => {
+        operandCSelect.removeEventListener('click', operandCSelectHandler)
+    });
+    operatorString1 = operatorArray[0];
+    equationArray[0] = operandA;
+    equationArray[1] = operandB;
+    let x = Number(operandA);
+    let y = Number(operandB);
+        if (operatorString1 == '+') {
+            let operationResult = (operandA) + (operandB);
+            equationArray = [];
+                equationArray[0] = [];
+                equationArray[1] = [operationResult];
+             operandArray = [];
+             operatorArray=[];
+            operator1Select.forEach(operator1Select => {
+                operator1Select.addEventListener('click', operator1SelectHandler);
+            });
+        } else if (operatorString1 == '-') {
+            let operationResult = (operandA) - (operandB);
+            equationArray = [];
+                equationArray[0] = [];
+                equationArray[1] = [operationResult];
+             operandArray = [];
+            operator1Select.forEach(operator1Select => {
+                operator1Select.addEventListener('click', operator1SelectHandler);
+            });   
+        } else if (operatorString1 == '*') {
+            let operationResult = (operandA) * (operandB);
+            equationArray = [];
+                equationArray[0] = [];
+                equationArray[1] = [operationResult];
+             operandArray = [];
+            operator1Select.forEach(operator1Select => {
+                operator1Select.addEventListener('click', operator1SelectHandler);
+            });
+        } else if (operatorString1 == '/') {
+            let operationResult = (operandA) / (operandB);
+            equationArray = [];
+                equationArray[0] = [];
+                equationArray[1] = [operationResult];
+             operandArray = [];
+            operator1Select.forEach(operator1Select => {
+                operator1Select.addEventListener('click', operator1SelectHandler);
+            });
+        }
+        let operationResult = Number(equationArray[1])
+        displayArray = [];
+        displayArray.push(equationArray[1]);
+        outputDisplay.textContent = displayArray[0];
+        operandA = operationResult;
+    console.log('final equationArray', equationArray);
+    console.log('final operatorArray', operatorArray);
+    console.log('final operandArray', operandArray);
+    console.log('final displayArray', displayArray);
+    console.log('final operandA', operandA);
+    console.log('final operandB', operandB);
+    equalsSelect2.forEach(equalsSelect2 => {
+        equalsSelect2.removeEventListener('click', equalsSelect2Handler)
+    });
+    equalsSelect1.forEach(equalsSelect1 => {
+        equalsSelect1.removeEventListener('click', equalsSelect1Handler)
+    });
+}
 
 /////////////////Functioning continuously. Need to add decimal, equal, clear///
 
