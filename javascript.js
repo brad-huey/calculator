@@ -10,7 +10,6 @@ displayArray = [buttonSelect.textContent];
 operandArray = [operandASelect.value];
 operandArray2 = [operandCSelect.value];
 operatorArray = [operator1Select.value];
-operatorArray2 = [operator2Select.value];
 equationArray = [];
     equationArray[0] = [];
     equationArray[1] = [];
@@ -27,30 +26,19 @@ function operandASelectHandler () {
     operator1Select.forEach(operator1Select => {
         operator1Select.addEventListener('click', operator1SelectHandler)
     });
-    //console.log('Start-- operandA', operandA);
-    //console.log('operand array 1', operandArray)
 };
 
 function operator1SelectHandler () {
     operandASelect.forEach(operandASelect => {
         operandASelect.removeEventListener('click', operandASelectHandler)
     });
-    console.log('1stbefore', operatorArray);
-    console.log('1stbefore', operatorArray.join(''));
     operatorArray = [];
-    console.log('1stafter', operatorArray);
-    console.log('1stafter', operatorArray.join(''));
     equationArray[1] = operandA;
     displayArray.push(this.value);
     operatorArray.push(this.value);
     operatorString1 = operatorArray[0];
-    //console.log(operatorString1);
     outputDisplay.textContent = displayArray.join('');
-    //console.log(' Start-- equationArray', equationArray);
-    //console.log('operand array 1',operandArray);
     operandArray = [];
-    //console.log('operand array 1 cleared',operandArray);
-    //console.log('operatorArray', operatorArray);
     operandBSelect.forEach(operandBSelect => {
         operandBSelect.addEventListener('click', operandBSelectHandler)
     });
@@ -64,16 +52,19 @@ function operandBSelectHandler () {
     operandArray.push(this.value);
     operandB = Number(operandArray.join(''));
     outputDisplay.textContent = displayArray.join('');
-    //console.log('error1', displayArray);
-    //console.log('error1', displayArray.join(''));
     operator2Select.forEach(operator2Select => {
         operator2Select.addEventListener('click', operator2SelectHandler)
     });
 };
 
 function operator2SelectHandler() {
-    operator2Array = [];
-    operator2Array.push(this.value);
+    operatorArray.push(this.value);
+    console.log(displayArray);
+    console.log(displayArray.join(''));
+    console.log('array before', operatorArray);
+    operatorString1 = operatorArray[0];
+    console.log('string after', operatorString1)
+    console.log('array after', operatorArray);
     operandArray2 = [];
     equationArray[0] = operandA;
     equationArray[1] = operandB;
@@ -84,12 +75,6 @@ function operator2SelectHandler() {
             let operandB = (y);
             let operationResult = (operandA) + (operandB);
              equationArray[1] = operationResult;
-             outputDisplay.textContent = (equationArray[1]) + (operator2Array[0]);
-             console.log('error+1', displayArray);
-             console.log('error+1', displayArray.join(''));
-             displayArray = [(equationArray[1]), (operator2Array[0])];
-             console.log('error+2', displayArray);
-             console.log('error+2', displayArray.join(''));
              operandArray = [];
              operatorArray.shift();
              equationArray.shift();
@@ -107,14 +92,8 @@ function operator2SelectHandler() {
             let operandB = (y);
             let operationResult = (operandA) - (operandB);
              equationArray[1] = operationResult;
-             outputDisplay.textContent = (equationArray[1]) + (operator2Array[0]);
-             console.log('error-1', displayArray);
-             console.log('error-1', displayArray.join(''));
-             displayArray = [(equationArray[1]), (operator2Array[0])];
-             console.log('error-2', displayArray);
-             console.log('error-2', displayArray.join(''));
              operandArray = [];
-             operator2Array.shift();
+             operatorArray.shift();
              equationArray.shift();
              operandCSelect.forEach(operandCSelect => {
                 operandCSelect.addEventListener('click', operandCSelectHandler)
@@ -130,14 +109,8 @@ function operator2SelectHandler() {
             let operandB = (y);
             let operationResult = (operandA) * (operandB);
              equationArray[1] = operationResult;
-             outputDisplay.textContent = (equationArray[1]) + (operator2Array[0]);
-             console.log('error*1', displayArray);
-             console.log('error*1', displayArray.join(''));
-             displayArray = [(equationArray[1]), (operator2Array[0])];
-             console.log('error*2', displayArray);
-             console.log('error*2', displayArray.join(''));
              operandArray = [];
-             operator2Array.shift();
+             operatorArray.shift();
              equationArray.shift();
              operandCSelect.forEach(operandCSelect => {
                 operandCSelect.addEventListener('click', operandCSelectHandler)
@@ -153,21 +126,9 @@ function operator2SelectHandler() {
             let operandB = (y);
             let operationResult = (operandA) / (operandB);
              equationArray[1] = operationResult;
-             outputDisplay.textContent = (equationArray[1]) + (operator2Array[0]);
-             console.log('error/1', displayArray);
-             console.log('error/1', displayArray.join(''));
-             displayArray = [(equationArray[1]), (operator2Array[0])];
-             console.log('error/2', displayArray);
-             console.log('error/2', displayArray.join(''));
              operandArray = [];
-             operator2Array.shift();
+             operatorArray.shift();
              equationArray.shift();
-            //  console.log('this equationArray', equationArray);
-            //  console.log('this operatorArray', operatorArray);
-            //  console.log('this operandArray', operandArray);
-            //  console.log('this operandA', operandA);
-            //  console.log('this operandB', operandB);
-            //  console.log('this displayArray', displayArray.join(''));
              operandCSelect.forEach(operandCSelect => {
                 operandCSelect.addEventListener('click', operandCSelectHandler)
             });
@@ -178,50 +139,28 @@ function operator2SelectHandler() {
                 operator2Select.removeEventListener('click', operator2SelectHandler);
             });
         }
-
-        console.log('2ndbefore', operatorArray);
-        console.log('2ndbefore', operatorArray.join(''));
-        operatorArray = [];
-    operatorArray.push(this.value);
-    console.log('2ndafter', operatorArray);
-    console.log('2ndafter', operatorArray.join(''));
     let operationResult = equationArray[0];
     operandArray = [operationResult];
-    //console.log('first result', operandArray);
+    displayArray = [];
+    displayArray.push(operationResult);
+    displayArray.push(this.value);
+    outputDisplay.textContent = displayArray.join('');
 }
 
 function operandCSelectHandler() {
     operandA = operandArray[0];
-    //console.log('before', operandA)
-    console.log('lastbeforedisplay', displayArray);
-    console.log('lastbeforedisplay', displayArray.join(''));
-    displayArray.push(this.value);
-    console.log('lastafterdisplay', displayArray);
-    console.log('lastafterdisplay', displayArray.join(''));
     operandArray2.push(this.value);
     operandC = operandArray2.join('');
     operandB = Number(operandC);
     equationArray[1] = operandB;
-    outputDisplay.textContent = (operandA) + (operator2Array[0]) + (operandB);
-    // console.log('here displayArray', displayArray);
-    // console.log('here operandArray', operandArray);
-    // console.log('here operandArray2', operandArray2);
-    // console.log('here operandArray2.join', operandArray2.join(''));
-    // console.log('here operandA', operandA);
-    // console.log('here operandB', operandB);
-    // console.log('here operandC', operandC);
-    // console.log('here equationArray[0]', equationArray[0]);
-    // console.log('here equationArray[1]', equationArray[1]);
+    displayArray.push(this.value);
+    outputDisplay.textContent = displayArray.join('');
     operator2Select.forEach(operator2Select => {
         operator2Select.addEventListener('click', operator2SelectHandler)
     });
-    // if (document.getElementsByClassName('.operator').clicked == true) {
-    //     operandArray.push(operandB);
-    //     console.log('IMPORTANT', operandArray);
-    // };
 };
 
-//OPERTOR NOT WORKING ARRAY1 and ARRAY2 need to fix////////////////////////
+/////////////////Functioning continuously. Need to add decimal, equal, clear///
 
 
 //Copy Paste lines only
