@@ -1,14 +1,26 @@
+//After decimal is deleted, cannot re-enter decimal without entering operand.
+//No length limit on characters entered or solution. No decimal place limit.
+//Delete button still works after operandB and C are entered and removed--
+//causing entire display to be erasable, need to end event listener.
+
 const buttonSelect = document.querySelectorAll('button');
 const operandASelect = document.querySelectorAll('.operand');
 const operandBSelect = document.querySelectorAll('.operand');
 const operandCSelect = document.querySelectorAll('.operand');
 const operator1Select = document.querySelectorAll('.operator');
 const operator2Select = document.querySelectorAll('.operator');
+const operator2AltSelect = document.querySelectorAll('.operator');
 const equalsSelect1 = document.querySelectorAll('.equals');
 const equalsSelect2 = document.querySelectorAll('.equals');
 const decimalASelect = document.querySelectorAll('.decimal');
 const decimalBSelect = document.querySelectorAll('.decimal');
 const decimalCSelect = document.querySelectorAll('.decimal');
+const deleteOperandASelect = document.querySelectorAll('.delete');
+const deleteOperator1Select = document.querySelectorAll('.delete');
+const deleteOperandBSelect = document.querySelectorAll('.delete');
+const deleteOperator2Select = document.querySelectorAll('.delete');
+const deleteOperandCSelect = document.querySelectorAll('.delete');
+const clearSelect = document.querySelectorAll('.clear');
 const outputDisplay = document.getElementById("output-box");
 displayArray = [buttonSelect.textContent];
 operandArray = [operandASelect.value];
@@ -22,6 +34,10 @@ operandASelect.forEach(operandASelect => {
     operandASelect.addEventListener('click', operandASelectHandler)
 });
 
+clearSelect.forEach(clearSelect => {
+    clearSelect.addEventListener('click', clearSelectHandler)
+});
+
 function operandASelectHandler () {
     const notIncludeA = !operandArray.includes('.');
     displayArray.push(this.value);
@@ -33,6 +49,9 @@ function operandASelectHandler () {
             decimalASelect.addEventListener('click', decimalASelectHandler)
         });
     }
+    deleteOperandASelect.forEach(deleteOperandASelect => {
+        deleteOperandASelect.addEventListener('click', deleteOperandASelectHandler)
+    });
     operator1Select.forEach(operator1Select => {
         operator1Select.addEventListener('click', operator1SelectHandler)
     });
@@ -48,7 +67,20 @@ function decimalASelectHandler () {
     });
 };
 
+function deleteOperandASelectHandler () {
+    displayArray.pop();
+    operandArray.pop();
+    operandA = Number(operandArray.join(''));
+    outputDisplay.textContent = displayArray.join('');
+    decimalASelect.forEach(decimalASelect => {
+        decimalASelect.removeEventListener('click', decimalASelectHandler)
+    });
+};
+
 function operator1SelectHandler () {
+    deleteOperandASelect.forEach(deleteOperandASelect => {
+        deleteOperandASelect.removeEventListener('click', deleteOperandASelectHandler)
+    });
     operandASelect.forEach(operandASelect => {
         operandASelect.removeEventListener('click', operandASelectHandler)
     });
@@ -64,13 +96,32 @@ function operator1SelectHandler () {
     operatorArray.push(this.value);
     operatorString1 = operatorArray[0];
     outputDisplay.textContent = displayArray.join('');
+    deleteOperator1Select.forEach(deleteOperator1Select => {
+        deleteOperator1Select.addEventListener('click', deleteOperator1SelectHandler)
+    });
     operandArray = [];
     operandBSelect.forEach(operandBSelect => {
         operandBSelect.addEventListener('click', operandBSelectHandler)
     });
-}
+};
+
+function deleteOperator1SelectHandler () {
+    displayArray.pop();
+    operatorArray = [];
+    operatorString1 = operatorArray[0];
+    outputDisplay.textContent = displayArray.join('');
+    deleteOperator1Select.forEach(deleteOperator1Select => {
+        deleteOperator1Select.removeEventListener('click', deleteOperator1SelectHandler)
+    });
+    operator1Select.forEach(operator1Select => {
+        operator1Select.addEventListener('click', operator1SelectHandler)
+    });
+};
 
 function operandBSelectHandler () {
+    deleteOperator1Select.forEach(deleteOperator1Select => {
+        deleteOperator1Select.removeEventListener('click', deleteOperator1SelectHandler)
+    });
     operator1Select.forEach(operator1Select => {
         operator1Select.removeEventListener('click', operator1SelectHandler)
     });
@@ -79,6 +130,10 @@ function operandBSelectHandler () {
     operandArray.push(this.value);
     operandB = Number(operandArray.join(''));
     outputDisplay.textContent = displayArray.join('');
+
+    deleteOperandBSelect.forEach(deleteOperandBSelect => {
+        deleteOperandBSelect.addEventListener('click', deleteOperandBSelectHandler)
+    });
     if (notIncludeB) {
         decimalBSelect.forEach(decimalBSelect => {
             decimalBSelect.addEventListener('click', decimalBSelectHandler)
@@ -102,7 +157,20 @@ function decimalBSelectHandler () {
     });
 };
 
+function deleteOperandBSelectHandler () {
+    displayArray.pop();
+    operandArray.pop();
+    operandB = Number(operandArray.join(''));
+    outputDisplay.textContent = displayArray.join('');
+    decimalBSelect.forEach(decimalBSelect => {
+        decimalBSelect.removeEventListener('click', decimalBSelectHandler)
+    });
+};
+
 function operator2SelectHandler() {
+    deleteOperandBSelect.forEach(deleteOperandBSelect => {
+        deleteOperandBSelect.removeEventListener('click', deleteOperandBSelectHandler)
+    });
     decimalASelect.forEach(decimalASelect => {
         decimalASelect.removeEventListener('click', decimalASelectHandler)
     });
@@ -200,9 +268,52 @@ function operator2SelectHandler() {
     displayArray.push(operationResult);
     displayArray.push(this.value);
     outputDisplay.textContent = displayArray.join('');
+    deleteOperator2Select.forEach(deleteOperator2Select => {
+        deleteOperator2Select.addEventListener('click', deleteOperator2SelectHandler)
+    });
 }
 
+function deleteOperator2SelectHandler () {
+    operandCSelect.forEach(operandCSelect => {
+        operandCSelect.removeEventListener('click', operandCSelectHandler)
+    });
+    let operationResult = equationArray[0];
+    operandArray = [operationResult];
+    displayArray = [];
+    displayArray.push(operationResult);
+    displayArray.push(this.value);
+    displayArray.pop();
+    operatorArray.pop();
+    operatorString1 = operatorArray[0];
+    outputDisplay.textContent = displayArray.join('');
+    deleteOperator2Select.forEach(deleteOperator2Select => {
+        deleteOperator2Select.removeEventListener('click', deleteOperator2SelectHandler)
+    });
+    operator2AltSelect.forEach(operator2AltSelect => {
+        operator2AltSelect.addEventListener('click', operator2AltSelectHandler)
+    });
+};
+
+//If operator2 is deleted, alt operator needed for re-entry without calculation
+function operator2AltSelectHandler() {
+    displayArray.push(this.value);
+    operatorArray.push(this.value);
+    outputDisplay.textContent = displayArray.join('');
+    deleteOperator2Select.forEach(deleteOperator2Select => {
+        deleteOperator2Select.addEventListener('click', deleteOperator2SelectHandler)
+    });
+    operator2AltSelect.forEach(operator2AltSelect => {
+        operator2AltSelect.removeEventListener('click', operator2AltSelectHandler)
+    });
+    operandCSelect.forEach(operandCSelect => {
+        operandCSelect.addEventListener('click', operandCSelectHandler)
+    });
+};
+
 function operandCSelectHandler() {
+    deleteOperator2Select.forEach(deleteOperator2Select => {
+        deleteOperator2Select.removeEventListener('click', deleteOperator2SelectHandler)
+    });
     const notIncludeC = !operandArray.includes('.');
     operandA = operandArray[0];
     operandArray2.push(this.value);
@@ -211,6 +322,9 @@ function operandCSelectHandler() {
     equationArray[1] = operandB;
     displayArray.push(this.value);
     outputDisplay.textContent = displayArray.join('');
+    deleteOperandCSelect.forEach(deleteOperandCSelect => {
+        deleteOperandCSelect.addEventListener('click', deleteOperandCSelectHandler)
+    });
     if (notIncludeC) {
         decimalCSelect.forEach(decimalCSelect => {
             decimalCSelect.addEventListener('click', decimalCSelectHandler)
@@ -237,8 +351,36 @@ function decimalCSelectHandler () {
     });
 };
 
-//equals button is pressed after 2nd operand entered
+function deleteOperandCSelectHandler () {
+    operandA = operandArray[0];
+    operandArray2.pop();
+    operandC = operandArray2.join('');
+    operandB = Number(operandC);
+    equationArray[1] = operandB;
+    displayArray.pop();
+    outputDisplay.textContent = displayArray.join('');
+    decimalCSelect.forEach(decimalCSelect => {
+        decimalCSelect.removeEventListener('click', decimalCSelectHandler)
+    });
+}
+
+//Equals -- equals pressed after operandB is entered (1st operation)
 function equalsSelect1Handler() {
+    deleteOperandASelect.forEach(deleteOperandASelect => {
+        deleteOperandASelect.removeEventListener('click', deleteOperandASelectHandler)
+    });
+    deleteOperandBSelect.forEach(deleteOperandBSelect => {
+        deleteOperandBSelect.removeEventListener('click', deleteOperandBSelectHandler)
+    });
+    deleteOperandCSelect.forEach(deleteOperandCSelect => {
+        deleteOperandCSelect.removeEventListener('click', deleteOperandCSelectHandler)
+    });
+    deleteOperator1Select.forEach(deleteOperator1Select => {
+        deleteOperator1Select.removeEventListener('click', deleteOperator1SelectHandler)
+    });
+    deleteOperator2Select.forEach(deleteOperator2Select => {
+        deleteOperator2Select.removeEventListener('click', deleteOperator2SelectHandler)
+    });
     decimalASelect.forEach(decimalASelect => {
         decimalASelect.removeEventListener('click', decimalASelectHandler)
     });
@@ -302,20 +444,28 @@ function equalsSelect1Handler() {
         displayArray.push(equationArray[1]);
         outputDisplay.textContent = displayArray[0];
         operandA = operationResult;
-    console.log('final equationArray', equationArray);
-    console.log('final operatorArray', operatorArray);
-    console.log('final operandArray', operandArray);
-    console.log('final displayArray', displayArray);
-    console.log('final operandA', operandA);
-    console.log('final operandB', operandB);
     equalsSelect1.forEach(equalsSelect1 => {
         equalsSelect1.removeEventListener('click', equalsSelect1Handler)
     });
 }
 
-//**Do Not Confuse with equals1**
-//equals button is pressed after operandC entered **Do Not Confuse with equals1**
+//Equals 2 -- equals pressed after operandC is entered (continuous operation)
 function equalsSelect2Handler() {
+    deleteOperandASelect.forEach(deleteOperandASelect => {
+        deleteOperandASelect.removeEventListener('click', deleteOperandASelectHandler)
+    });
+    deleteOperandBSelect.forEach(deleteOperandBSelect => {
+        deleteOperandBSelect.removeEventListener('click', deleteOperandBSelectHandler)
+    });
+    deleteOperandCSelect.forEach(deleteOperandCSelect => {
+        deleteOperandCSelect.removeEventListener('click', deleteOperandCSelectHandler)
+    });
+    deleteOperator1Select.forEach(deleteOperator1Select => {
+        deleteOperator1Select.removeEventListener('click', deleteOperator1SelectHandler)
+    });
+    deleteOperator2Select.forEach(deleteOperator2Select => {
+        deleteOperator2Select.removeEventListener('click', deleteOperator2SelectHandler)
+    });
     decimalASelect.forEach(decimalASelect => {
         decimalASelect.removeEventListener('click', decimalASelectHandler)
     });
@@ -379,201 +529,54 @@ function equalsSelect2Handler() {
         displayArray.push(equationArray[1]);
         outputDisplay.textContent = displayArray[0];
         operandA = operationResult;
-    console.log('final equationArray', equationArray);
-    console.log('final operatorArray', operatorArray);
-    console.log('final operandArray', operandArray);
-    console.log('final displayArray', displayArray);
-    console.log('final operandA', operandA);
-    console.log('final operandB', operandB);
     equalsSelect2.forEach(equalsSelect2 => {
         equalsSelect2.removeEventListener('click', equalsSelect2Handler)
     });
     equalsSelect1.forEach(equalsSelect1 => {
         equalsSelect1.removeEventListener('click', equalsSelect1Handler)
     });
-}
+};
 
-/////////////////Functioning continuously. Need to add decimal, equal, clear///
-
-
-//Copy Paste lines only
-
-// const buttonOne = document.getElementById("button-one");
-// const buttonTwo = document.getElementById("button-two");
-// const buttonThree = document.getElementById("button-three");
-// const buttonFour = document.getElementById("button-four");
-// const buttonFive = document.getElementById("button-five");
-// const buttonSix = document.getElementById("button-six");
-// const buttonSeven = document.getElementById("button-seven");
-// const buttonEight = document.getElementById("button-eight");
-// const buttonNine = document.getElementById("button-nine");
-// const buttonZero = document.getElementById("button-zero");
-// const buttonDecimal = document.getElementById("button-decimal");
-// const buttonDelete = document.getElementById("button-delete");
-// const buttonAdd = document.getElementById("button-add");
-// const buttonSubtract = document.getElementById("button-subtract");
-// const buttonMultiply = document.getElementById("button-multiply");
-// const buttonDivide = document.getElementById("button-divide");
-// const buttonEquals = document.getElementById("button-equals");
-// const buttonClear = document.getElementById("button-clear");
-
-
-/*
-/////////////////
-//Can't easily do more than one operation ar a time below, needs decimal places as well
-//Restarting with single array, and loop?
-/////////////////
-const buttonsOperand = document.getElementsByClassName('operand');
-const buttonsOperator = document.getElementsByClassName('operator');
-const buttonDecimal = document.getElementsByClassName('decimal');
-const buttonDelete = document.getElementsByClassName('delete');
-const buttonEqual = document.getElementsByClassName('equals');
-const buttonClear = document.getElementsByClassName('clear');
-const outputDisplay = document.getElementById("output-box");
-const operandSelected = document.querySelectorAll('.operand');
-const operatorSelected = document.querySelectorAll('.operator');
-const operand2Selected = document.querySelectorAll('.operand');
-const operator2Selected = document.querySelectorAll('.operator');
-const equalsSelected = document.querySelectorAll('.equals');
-const clearSelect = document.querySelectorAll('.clear');
-operandArray1 = [operandSelected.value];
-operatorArray1 = [operatorSelected.textContent];
-operandArray2 = [operand2Selected.value];
-operatorArray2 = [operator2Selected.textContent];
-equationAnswer = [operandArray1];
-operandArray1.shift();
-operatorArray1.shift();
-operandArray2.shift();
-
-
-// const operand1 = [];
-//     operand1[0] = '0';
-//     operand1[1] = '1';
-//     operand1[2] = '2';
-//     operand1[3] = '3';
-//     operand1[4] = '4';
-//     operand1[5] = '5';
-//     operand1[6] = '6';
-//     operand1[7] = '7';
-//     operand1[8] = '8';
-//     operand1[9] = '9';
-
-//for (i = 0; i = 0; i++);
-
-
-
-operandSelected.forEach(operandSelected => {
-    operandSelected.addEventListener('click', operandFirstHandler)
-});
-
-    function operandFirstHandler () {
-        operandArray1.push(this.value);
-        outputDisplay.textContent = (operandArray1.join(''))
-        //console.log(operandArray1.join(''))  //console log
-        //console.log(operandArray1);
-        operatorSelected.forEach(operatorSelected => {
-            operatorSelected.addEventListener('click', operatorFirstHandler)
-        });
-        clearSelect.forEach(clearSelect => {
-            clearSelect.addEventListener('click', clearDisplayHandler)
-        });
-    };
-
-    function operatorFirstHandler () {
-        operatorArray1.push(this.value);
-        let displayOperation1 = (operandArray1.join('')) + operatorArray1.join('');
-        outputDisplay.textContent = (displayOperation1);
-        //console.log(operatorArray1.join('')); //console log
-        //console.log(operatorArray1);
-        operandSelected.forEach(operandSelected => {
-            operandSelected.removeEventListener('click', operandFirstHandler)
-        });
-        operatorSelected.forEach(operatorSelected => {
-            operatorSelected.removeEventListener('click', operatorFirstHandler)
-        });
-        operand2Selected.forEach(operand2Selected => {
-            operand2Selected.addEventListener('click', operandSecondHandler)
-        });
-    };
-
-    function operandSecondHandler() {
-        operandArray2.push(this.value);
-        let displayOperation2 = (operandArray1.join('')) 
-        + (operatorArray1.join('')) + (operandArray2.join(''));
-        outputDisplay.textContent = (displayOperation2);
-        //console.log(operandArray2.join(''));
-        //console.log(operandArray2);
-        equalsSelected.forEach(equalsSelected => {
-            equalsSelected.addEventListener('click', equalsHandler)
-        });
-    };
-
-    function equalsHandler() {
-        operand2Selected.forEach(operand2Selected => {
-            operand2Selected.removeEventListener('click', operandSecondHandler)
-        });
-        let operandString1 = operandArray1.join('');
-        let operandString2 = operandArray2.join('');
-        let operatorString1 = operatorArray1.join('');
-        let operandNumber1 = parseFloat(operandString1);
-        let operandNumber2 = parseFloat(operandString2);
-            if (operatorString1 === '+') {
-                outputDisplay.textContent = (operandNumber1) + (operandNumber2)
-                //console.log((operandNumber1) + (operandNumber2));
-                let equationAnswer = ((operandNumber1) + (operandNumber2));
-                operandArray1 = ['', equationAnswer];
-                console.log(operandArray1);
-            }
-            if (operatorString1 === '-') {
-                outputDisplay.textContent = (operandNumber1) - (operandNumber2)
-                //console.log((operandNumber1) - (operandNumber2));
-                let equationAnswer = ((operandNumber1) - (operandNumber2));
-                operandArray1 = ['', equationAnswer];
-                console.log(operandArray1);
-            }
-            if (operatorString1 === '*') {
-                outputDisplay.textContent = (operandNumber1) * (operandNumber2)
-                //console.log((operandNumber1) * (operandNumber2));
-                let equationAnswer = ((operandNumber1) * (operandNumber2));
-                operandArray1 = ['', equationAnswer];
-                console.log(operandArray1);
-            }
-            if (operatorString1 === '/') {
-                outputDisplay.textContent = (operandNumber1) / (operandNumber2)
-                //console.log((operandNumber1) / (operandNumber2));
-                let equationAnswer = ((operandNumber1) / (operandNumber2));
-                operandArray1 = ['', equationAnswer];
-                console.log(operandArray1);
-            }
-            operatorArray1 = [];
-            operandArray2 = [];
-        //console.log(operandArray1);
-        operatorSelected.forEach(operatorSelected => {
-            operatorSelected.addEventListener('click', operatorFirstHandler)
-        });
-    };
-
-    function clearDisplayHandler () {
-        operandArray1 = [];
-        operandArray2 = [];
-        operatorArray1 = [];
-        outputDisplay.textContent = '0';
-        operand2Selected.forEach(operand2Selected => {
-            operand2Selected.removeEventListener('click', operandSecondHandler)
-        });
-        operatorSelected.forEach(operatorSelected => {
-            operatorSelected.removeEventListener('click', operatorFirstHandler)
-        });
-        equalsSelected.forEach(equalsSelected => {
-            equalsSelected.removeEventListener('click', equalsHandler)
-        });
-        operandSelected.forEach(operandSelected => {
-            operandSelected.addEventListener('click', operandFirstHandler)
-        });
-        clearSelect.forEach(clearSelect => {
-            clearSelect.removeEventListener('click', clearDisplayHandler)
-        });
-    }
-    ///////////////// --WORKS TIL HERE-- /////////////////
-
-    */
+function clearSelectHandler () {
+    displayArray = [];
+    operandArray = [];
+    operandArray2 = [];
+    operatorArray = [];
+    equationArray = [];
+        equationArray[0] = [];
+        equationArray[1] = [];
+    outputDisplay.textContent = '0';
+    operandASelect.forEach(operandASelect => {
+        operandASelect.addEventListener('click', operandASelectHandler)
+    });
+    operandBSelect.forEach(operandBSelect => {
+        operandBSelect.removeEventListener('click', operandBSelectHandler)
+    });
+    operandCSelect.forEach(operandCSelect => {
+        operandCSelect.removeEventListener('click', operandCSelectHandler)
+    });
+    decimalASelect.forEach(decimalASelect => {
+        decimalASelect.removeEventListener('click', decimalASelectHandler)
+    });
+    decimalBSelect.forEach(decimalBSelect => {
+        decimalBSelect.removeEventListener('click', decimalBSelectHandler)
+    });
+    decimalCSelect.forEach(decimalCSelect => {
+        decimalCSelect.removeEventListener('click', decimalCSelectHandler)
+    });
+    operator1Select.forEach(operator1Select => {
+        operator1Select.removeEventListener('click', operator1SelectHandler)
+    });
+    operator2Select.forEach(operator2Select => {
+        operator2Select.removeEventListener('click', operator2SelectHandler)
+    });
+    equalsSelect2.forEach(equalsSelect2 => {
+        equalsSelect2.removeEventListener('click', equalsSelect2Handler)
+    });
+    equalsSelect1.forEach(equalsSelect1 => {
+        equalsSelect1.removeEventListener('click', equalsSelect1Handler)
+    });
+    operator2AltSelect.forEach(operator2AltSelect => {
+        operator2AltSelect.removeEventListener('click', operator2AltSelectHandler)
+    });
+};
