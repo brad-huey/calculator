@@ -6,6 +6,9 @@ const operator1Select = document.querySelectorAll('.operator');
 const operator2Select = document.querySelectorAll('.operator');
 const equalsSelect1 = document.querySelectorAll('.equals');
 const equalsSelect2 = document.querySelectorAll('.equals');
+const decimalASelect = document.querySelectorAll('.decimal');
+const decimalBSelect = document.querySelectorAll('.decimal');
+const decimalCSelect = document.querySelectorAll('.decimal');
 const outputDisplay = document.getElementById("output-box");
 displayArray = [buttonSelect.textContent];
 operandArray = [operandASelect.value];
@@ -20,12 +23,28 @@ operandASelect.forEach(operandASelect => {
 });
 
 function operandASelectHandler () {
+    const notIncludeA = !operandArray.includes('.');
     displayArray.push(this.value);
     operandArray.push(this.value);
     operandA = Number(operandArray.join(''));
     outputDisplay.textContent = displayArray.join('');
+    if (notIncludeA) {
+        decimalASelect.forEach(decimalASelect => {
+            decimalASelect.addEventListener('click', decimalASelectHandler)
+        });
+    }
     operator1Select.forEach(operator1Select => {
         operator1Select.addEventListener('click', operator1SelectHandler)
+    });
+};
+
+function decimalASelectHandler () {
+    displayArray.push(this.value);
+    operandArray.push(this.value);
+    operandA = Number(operandArray.join(''));
+    outputDisplay.textContent = displayArray.join('');
+    decimalASelect.forEach(decimalASelect => {
+        decimalASelect.removeEventListener('click', decimalASelectHandler)
     });
 };
 
@@ -36,25 +55,16 @@ function operator1SelectHandler () {
     operator1Select.forEach(operator1Select => {
         operator1Select.removeEventListener('click', operator1SelectHandler);
     });
-    console.log('a1 equationArray', equationArray);
-    console.log('a1 operatorArray', operatorArray);
-    console.log('a1 operandArray', operandArray);
-    console.log('a1 displayArray', displayArray);
-    console.log('a1 operandA', operandA);
+    decimalASelect.forEach(decimalASelect => {
+        decimalASelect.removeEventListener('click', decimalASelectHandler)
+    });
     operatorArray = [];
-    console.log('a1 CLEAR operatorArray', operatorArray);
     equationArray[1] = operandA;
     displayArray.push(this.value);
     operatorArray.push(this.value);
     operatorString1 = operatorArray[0];
     outputDisplay.textContent = displayArray.join('');
-    console.log('a2 equationArray', equationArray);
-    console.log('a2 operatorArray', operatorArray);
-    console.log('a2 operandArray', operandArray);
-    console.log('a2 displayArray', displayArray);
-    console.log('a2 operandA', operandA);
     operandArray = [];
-    console.log('aCLEAR operandArray', operandArray);
     operandBSelect.forEach(operandBSelect => {
         operandBSelect.addEventListener('click', operandBSelectHandler)
     });
@@ -64,21 +74,16 @@ function operandBSelectHandler () {
     operator1Select.forEach(operator1Select => {
         operator1Select.removeEventListener('click', operator1SelectHandler)
     });
-    console.log('b1 equationArray', equationArray);
-    console.log('b1 operatorArray', operatorArray);
-    console.log('b1 operandArray', operandArray);
-    console.log('b1 displayArray', displayArray);
-    console.log('b1 operandA', operandA);
+    const notIncludeB = !operandArray.includes('.');
     displayArray.push(this.value);
     operandArray.push(this.value);
     operandB = Number(operandArray.join(''));
     outputDisplay.textContent = displayArray.join('');
-    console.log('b2 equationArray', equationArray);
-    console.log('b2 operatorArray', operatorArray);
-    console.log('b2 operandArray', operandArray);
-    console.log('b2 displayArray', displayArray);
-    console.log('b2 operandA', operandA);
-    console.log('b2 operandB', operandB);
+    if (notIncludeB) {
+        decimalBSelect.forEach(decimalBSelect => {
+            decimalBSelect.addEventListener('click', decimalBSelectHandler)
+        });
+    };
     operator2Select.forEach(operator2Select => {
         operator2Select.addEventListener('click', operator2SelectHandler)
     });
@@ -87,7 +92,26 @@ function operandBSelectHandler () {
     });
 };
 
+function decimalBSelectHandler () {
+    displayArray.push(this.value);
+    operandArray.push(this.value);
+    operandB = Number(operandArray.join(''));
+    outputDisplay.textContent = displayArray.join('');
+    decimalBSelect.forEach(decimalBSelect => {
+        decimalBSelect.removeEventListener('click', decimalBSelectHandler)
+    });
+};
+
 function operator2SelectHandler() {
+    decimalASelect.forEach(decimalASelect => {
+        decimalASelect.removeEventListener('click', decimalASelectHandler)
+    });
+    decimalBSelect.forEach(decimalBSelect => {
+        decimalBSelect.removeEventListener('click', decimalBSelectHandler)
+    });
+    decimalCSelect.forEach(decimalCSelect => {
+        decimalCSelect.removeEventListener('click', decimalCSelectHandler)
+    });
     equalsSelect1.forEach(equalsSelect1 => {
         equalsSelect1.removeEventListener('click', equalsSelect1Handler)
     });
@@ -179,6 +203,7 @@ function operator2SelectHandler() {
 }
 
 function operandCSelectHandler() {
+    const notIncludeC = !operandArray.includes('.');
     operandA = operandArray[0];
     operandArray2.push(this.value);
     operandC = operandArray2.join('');
@@ -186,6 +211,11 @@ function operandCSelectHandler() {
     equationArray[1] = operandB;
     displayArray.push(this.value);
     outputDisplay.textContent = displayArray.join('');
+    if (notIncludeC) {
+        decimalCSelect.forEach(decimalCSelect => {
+            decimalCSelect.addEventListener('click', decimalCSelectHandler)
+        });
+    };
     operator2Select.forEach(operator2Select => {
         operator2Select.addEventListener('click', operator2SelectHandler)
     });
@@ -194,8 +224,30 @@ function operandCSelectHandler() {
     });
 };
 
+function decimalCSelectHandler () {
+    operandA = operandArray[0];
+    operandArray2.push(this.value);
+    operandC = operandArray2.join('');
+    operandB = Number(operandC);
+    equationArray[1] = operandB;
+    displayArray.push(this.value);
+    outputDisplay.textContent = displayArray.join('');
+    decimalCSelect.forEach(decimalCSelect => {
+        decimalCSelect.removeEventListener('click', decimalCSelectHandler)
+    });
+};
+
 //equals button is pressed after 2nd operand entered
 function equalsSelect1Handler() {
+    decimalASelect.forEach(decimalASelect => {
+        decimalASelect.removeEventListener('click', decimalASelectHandler)
+    });
+    decimalBSelect.forEach(decimalBSelect => {
+        decimalBSelect.removeEventListener('click', decimalBSelectHandler)
+    });
+    decimalCSelect.forEach(decimalCSelect => {
+        decimalCSelect.removeEventListener('click', decimalCSelectHandler)
+    });
     operator2Select.forEach(operator2Select => {
         operator2Select.removeEventListener('click', operator2SelectHandler)
     });
@@ -264,6 +316,15 @@ function equalsSelect1Handler() {
 //**Do Not Confuse with equals1**
 //equals button is pressed after operandC entered **Do Not Confuse with equals1**
 function equalsSelect2Handler() {
+    decimalASelect.forEach(decimalASelect => {
+        decimalASelect.removeEventListener('click', decimalASelectHandler)
+    });
+    decimalBSelect.forEach(decimalBSelect => {
+        decimalBSelect.removeEventListener('click', decimalBSelectHandler)
+    });
+    decimalCSelect.forEach(decimalCSelect => {
+        decimalCSelect.removeEventListener('click', decimalCSelectHandler)
+    });
     operator2Select.forEach(operator2Select => {
         operator2Select.removeEventListener('click', operator2SelectHandler)
     });
